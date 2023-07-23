@@ -6,6 +6,7 @@ using Pathfinding;
 public class NpcController : MonoBehaviour
 {
     [SerializeField] bool isAggressive;
+    [SerializeField] int spoilersBeforeGettingUp;
 
     [SerializeField] AIDestinationSetter destination;
 
@@ -16,18 +17,15 @@ public class NpcController : MonoBehaviour
         destination = GetComponent<AIDestinationSetter>();
     }
 
-    void FixedUpdate()
-    {
-        
-    }
+    public void HeardSpoiler() {
+        spoilersBeforeGettingUp--;
 
-    public void SetPlayerAsTarget()
-    {
-        destination.target = GameObject.FindWithTag("Player").transform;
-    }
-
-    public void AnswerVoiceDebug()
-    {
-        Debug.Log(name + " heard that!");
+        if (spoilersBeforeGettingUp <= 0) {
+            if (isAggressive) {
+                destination.target = GameObject.FindWithTag("Player").transform;
+            } else {
+                destination.target = GameObject.FindWithTag("Exit").transform;
+            }
+        }
     }
 }

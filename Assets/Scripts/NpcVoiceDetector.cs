@@ -13,8 +13,7 @@ public class NpcVoiceDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Voice")) {
-            npcController.AnswerVoiceDebug();
-            npcController.SetPlayerAsTarget();
-        } else Debug.Log("Other collision?");
+            npcController.HeardSpoiler();
+        }
     }
 }

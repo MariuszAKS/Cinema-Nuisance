@@ -203,7 +203,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.25}
+  m_Size: {x: 0.45, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &4963781786183122731
 GameObject:
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 734047232}
   m_Layer: 0
   m_Name: Npc
-  m_TagString: Untagged
+  m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAggressive: 0
+  spoilersBeforeGettingUp: 1
+  destination: {fileID: 0}
 --- !u!114 &734047233
 MonoBehaviour:
   m_ObjectHideFlags: 0
