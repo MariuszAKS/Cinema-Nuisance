@@ -18,11 +18,8 @@ public class NpcController : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("UpsettingRange")) {
-            Debug.Log(name + "Upset");
-        } else {
-            Debug.Log("Other trigger");
-        }
+    public void AnswerVoiceDebug()
+    {
+        Debug.Log(name + " heard that!");
     }
 }

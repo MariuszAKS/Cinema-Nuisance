@@ -2944,6 +2944,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8693799056997404118, guid: 003a591fe72e6e0429966ab80e1a4416, type: 3}
+      propertyPath: m_TagString
+      value: Voice
+      objectReference: {fileID: 0}
     - target: {fileID: 8693799057943468849, guid: 003a591fe72e6e0429966ab80e1a4416, type: 3}
       propertyPath: m_RootOrder
       value: 3
