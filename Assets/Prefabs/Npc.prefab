@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1155283959140039894}
   - component: {fileID: 2808176355389175669}
+  - component: {fileID: 1061323049}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1061323049
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2271434238438806948}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 182749ddf54636b499440080c9b333ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4963781785403572913
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4963781786183122725}
+  - component: {fileID: 1057946316014002978}
   - component: {fileID: 2046446577739411572}
   - component: {fileID: 734047233}
   - component: {fileID: 7554444353037902175}
@@ -244,6 +267,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1057946316014002978
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4963781786183122731}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &2046446577739411572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a326b4bf2253bb144aced303932ec8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1061323049}
   isAggressive: 0
   spoilersBeforeGettingUp: 1
   destination: {fileID: 0}

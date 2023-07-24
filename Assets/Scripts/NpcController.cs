@@ -5,6 +5,9 @@ using Pathfinding;
 
 public class NpcController : MonoBehaviour
 {
+    private Rigidbody2D rb2d;
+    [SerializeField] private Animator animator;
+
     [SerializeField] bool isAggressive;
     [SerializeField] int spoilersBeforeGettingUp;
 
@@ -19,9 +22,19 @@ public class NpcController : MonoBehaviour
 
     void Awake()
     {
+        rb2d = GetComponent<Rigidbody2D>();
+        
         destination = GetComponent<AIDestinationSetter>();
         MoodSprRend.enabled = false;
     }
+
+    void FixedUpdate()
+    {
+        animator.SetFloat("velocityX", rb2d.velocity.x);
+        animator.SetFloat("velocityY", rb2d.velocity.y);
+    }
+
+
 
     public void HeardSpoiler() {
         spoilersBeforeGettingUp--;
