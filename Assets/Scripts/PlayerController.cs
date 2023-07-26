@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private GameObject VoiceRange;
 
+    [SerializeField] private Animator animator;
+
 
 
     void Awake()
@@ -35,6 +37,9 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleCamera();
+
+        animator.SetFloat("velocityX", rb2d.velocity.x);
+        animator.SetFloat("velocityY", rb2d.velocity.y);
     }
 
 
