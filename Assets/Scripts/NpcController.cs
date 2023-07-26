@@ -11,7 +11,8 @@ public class NpcController : MonoBehaviour
     [SerializeField] bool isAggressive;
     [SerializeField] int spoilersBeforeGettingUp;
 
-    [SerializeField] AIDestinationSetter destination;
+    AIDestinationSetter destination;
+    AIPath aiPath;
 
     [SerializeField] SpriteRenderer MoodSprRend;
     [SerializeField] Sprite MoodAnnoyed;
@@ -25,13 +26,14 @@ public class NpcController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         
         destination = GetComponent<AIDestinationSetter>();
+        aiPath = GetComponent<AIPath>();
         MoodSprRend.enabled = false;
     }
 
     void FixedUpdate()
     {
-        animator.SetFloat("velocityX", rb2d.velocity.x);
-        animator.SetFloat("velocityY", rb2d.velocity.y);
+        animator.SetFloat("velocityX", aiPath.desiredVelocity.x);
+        animator.SetFloat("velocityY", aiPath.desiredVelocity.y);
     }
 
 
