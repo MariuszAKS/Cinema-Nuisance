@@ -7,6 +7,7 @@ TagManager:
   - Voice
   - Exit
   - Npc
+  - Seat Trigger
   layers:
   - Default
   - TransparentFX
@@ -14,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Obstacle Collider
   - Obstacles
   - Voice
-  - 
-  - 
+  - Trigger Collider
+  - Triggers
   - 
   - 
   - 
