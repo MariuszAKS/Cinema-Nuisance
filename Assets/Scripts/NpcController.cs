@@ -54,4 +54,12 @@ public class NpcController : MonoBehaviour
             MoodSprRend.sprite = MoodAnnoyed;
         }
     }
+
+    public void SetSpoilersAmount(ushort value) {
+        spoilersBeforeGettingUp = value;
+    }
+
+    public void SetAggressive(bool value) {
+        isAggressive = value;
+    }
 }

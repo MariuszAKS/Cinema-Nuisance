@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
         SpawnNpcs();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -30,10 +29,19 @@ public class GameController : MonoBehaviour
         List<Vector3> seatTriggerPositions = GetListOfSeatTriggerPositions();
         CorrectNpcAmounts(seatTriggerPositions.Count);
 
+        int aggressiveNpcsLeft = aggressiveNpcAmount;
+
         for (int i = 0; i < npcAmount; i++) {
             int seatTriggerPositionIndex = Random.Range(0, seatTriggerPositions.Count);
 
-            Instantiate(NpcPrefab, seatTriggerPositions[seatTriggerPositionIndex], Quaternion.identity);
+            GameObject npc = Instantiate(NpcPrefab, seatTriggerPositions[seatTriggerPositionIndex], Quaternion.identity);
+
+            if (aggressiveNpcsLeft > 0) {
+                npc.GetComponent<NpcController>().SetAggressive(true);
+                npc.GetComponent<NpcController>().SetSpoilersAmount((ushort)Random.Range(1, 4));
+                aggressiveNpcsLeft--;
+            }
+            
             seatTriggerPositions.RemoveAt(seatTriggerPositionIndex);
         }
     }
