@@ -7,9 +7,7 @@ public class NpcVoiceDetector : MonoBehaviour
     [SerializeField] GameObject npc;
     [SerializeField] NpcController npcController;
 
-    private void Awake() {
-        npcController = npc.GetComponent<NpcController>();
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Voice")) {

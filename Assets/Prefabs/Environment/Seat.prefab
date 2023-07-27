@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3463545937520117918}
   - component: {fileID: 4775009738641279995}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Sit Collider
   m_TagString: Seat Trigger
   m_Icon: {fileID: 0}
