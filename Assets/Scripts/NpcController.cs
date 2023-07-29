@@ -8,17 +8,21 @@ public class NpcController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField] private Animator animator;
 
-    [SerializeField] bool isAggressive;
-    [SerializeField] int spoilersBeforeGettingUp;
+    [SerializeField] private bool isAggressive;
+    [SerializeField] private int spoilersBeforeGettingUp;
 
-    AIDestinationSetter destination;
-    AIPath aiPath;
-    bool followingPlayer;
+    private AIDestinationSetter destination;
+    private AIPath aiPath;
+    private GameObject voiceSource;
+    private bool followingPlayer;
 
-    [SerializeField] SpriteRenderer MoodSprRend;
-    [SerializeField] Sprite MoodAnnoyed;
-    [SerializeField] Sprite MoodGivenUp;
-    [SerializeField] Sprite MoodAggressive;
+    [SerializeField] private SpriteRenderer MoodSprRend;
+    [SerializeField] private Sprite MoodAnnoyed;
+    [SerializeField] private Sprite MoodGivenUp;
+    [SerializeField] private Sprite MoodAggressive;
+
+    private GameObject Player;
+    private Rigidbody2D PlayerRb2d;
 
 
 
@@ -31,17 +35,50 @@ public class NpcController : MonoBehaviour
         MoodSprRend.enabled = false;
     }
 
+    void Start() {
+        Player = GameObject.FindWithTag("Player");
+        PlayerRb2d = Player.GetComponent<Rigidbody2D>();
+    }
+
     void FixedUpdate()
     {
         animator.SetFloat("velocityX", aiPath.desiredVelocity.x);
         animator.SetFloat("velocityY", aiPath.desiredVelocity.y);
 
-        if (followingPlayer && aiPath.reachedDestination) {
-            GameController.instance.NpcCatchesPlayer();
+        if (isAggressive && destination.target != null) {
+            float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);
+
+            if (distanceToPlayer < 2 && PlayerRb2d.velocity != Vector2.zero) {
+                FollowPlayer();
+            } else if (distanceToPlayer > 6) {
+                FollowDoor();
+            }
+        }
+
+        if (aiPath.reachedDestination) {
+            if (followingPlayer) {
+                GameController.instance.NpcCatchesPlayer();
+            } else {
+                Destroy(voiceSource);
+
+                float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);
+                if (distanceToPlayer < 2) {
+                    FollowPlayer();
+                } else {
+                    FollowDoor();
+                }
+            }
         }
     }
 
 
+
+    public void SetSpoilersAmount(ushort value) {
+        spoilersBeforeGettingUp = value;
+    }
+    public void SetAggressive(bool value) {
+        isAggressive = value;
+    }
 
     public void HeardSpoiler() {
         spoilersBeforeGettingUp--;
@@ -50,23 +87,29 @@ public class NpcController : MonoBehaviour
         if (spoilersBeforeGettingUp <= 0) {
             if (isAggressive) {
                 MoodSprRend.sprite = MoodAggressive;
-                destination.target = GameObject.FindWithTag("Player").transform;
-                followingPlayer = true;
+                FollowVoice();
             } else {
                 MoodSprRend.sprite = MoodGivenUp;
-                destination.target = GameObject.FindWithTag("Exit").transform;
-                followingPlayer = false;
+                FollowDoor();
             }
         } else {
             MoodSprRend.sprite = MoodAnnoyed;
         }
     }
 
-    public void SetSpoilersAmount(ushort value) {
-        spoilersBeforeGettingUp = value;
+    private void FollowVoice() {
+        voiceSource = new GameObject("Voice Source");
+        voiceSource.transform.position = Player.transform.position;
+        destination.target = voiceSource.transform;
+        followingPlayer = false;
     }
-
-    public void SetAggressive(bool value) {
-        isAggressive = value;
+    private void FollowPlayer() {
+        destination.target = Player.transform;
+        followingPlayer = true;
+    }
+    private void FollowDoor() {
+        GameObject[] Exits = GameObject.FindGameObjectsWithTag("Exit");
+        destination.target = Exits[Random.Range(0, Exits.Length)].transform;
+        followingPlayer = false;
     }
 }
