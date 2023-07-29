@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -49,5 +50,15 @@ public class UIController : MonoBehaviour
     }
     public void SetActive_WinnerScreen(bool value) {
         WinnerScreen.SetActive(value);
+    }
+
+
+
+    public void RestartGame() {
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu() {
+        SceneManager.LoadScene(0);
     }
 }

@@ -42,6 +42,11 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("velocityY", rb2d.velocity.y);
     }
 
+    void OnDestroy() {
+        playerInputActions.Player.Speech.started -= Speak;
+        playerInputActions.Player.Speech.canceled -= Speak;
+    }
+
 
 
     void HandleMovement() {

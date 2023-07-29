@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -27,6 +27,15 @@
                     "name": "Speech",
                     "type": "Button",
                     "id": "27ed9130-ab7c-49c4-8ba4-2c354405c761",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SitStand",
+                    "type": "Button",
+                    "id": "ab12ff7f-ad23-48e1-a88c-e4f8f36b4df3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -163,6 +172,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e411a29-0b5f-44b6-b970-4b02263d15fb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SitStand",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameObject SeatSet;
     [SerializeField] private GameObject NpcPrefab;
+    [SerializeField] private GameObject PlayerPrefab;
 
     [SerializeField] private ushort npcAmount;
     [SerializeField] private ushort aggressiveNpcAmount;
@@ -26,13 +27,9 @@ public class GameController : MonoBehaviour
         } else Destroy(gameObject);
 
         SpawnNpcs();
+        SpawnPlayer();
 
         Time.timeScale = 1;
-    }
-
-    void Update()
-    {
-        
     }
 
 
@@ -57,6 +54,14 @@ public class GameController : MonoBehaviour
             
             seatTriggerPositions.RemoveAt(seatTriggerPositionIndex);
         }
+    }
+
+    private void SpawnPlayer()
+    {
+        GameObject[] exits = GameObject.FindGameObjectsWithTag("Exit");
+        int exitIndex = Random.Range(0, exits.Length);
+
+        Instantiate(PlayerPrefab, exits[exitIndex].transform.position, Quaternion.identity);
     }
 
     private List<Vector3> GetListOfSeatTriggerPositions()
