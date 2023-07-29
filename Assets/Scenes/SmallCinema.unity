@@ -4432,7 +4432,7 @@ MonoBehaviour:
   NpcPrefab: {fileID: 4963781786183122731, guid: 9d3f7911293085347870708f635a0f9e, type: 3}
   PlayerPrefab: {fileID: 8693799057943468855, guid: 003a591fe72e6e0429966ab80e1a4416, type: 3}
   npcAmount: 12
-  aggressiveNpcAmount: 12
+  aggressiveNpcAmount: 4
 --- !u!1 &1378016597
 GameObject:
   m_ObjectHideFlags: 0
