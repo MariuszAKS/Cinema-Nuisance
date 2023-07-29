@@ -13,6 +13,7 @@ public class NpcController : MonoBehaviour
 
     AIDestinationSetter destination;
     AIPath aiPath;
+    bool followingPlayer;
 
     [SerializeField] SpriteRenderer MoodSprRend;
     [SerializeField] Sprite MoodAnnoyed;
@@ -34,6 +35,10 @@ public class NpcController : MonoBehaviour
     {
         animator.SetFloat("velocityX", aiPath.desiredVelocity.x);
         animator.SetFloat("velocityY", aiPath.desiredVelocity.y);
+
+        if (followingPlayer && aiPath.reachedDestination) {
+            GameController.instance.NpcCatchesPlayer();
+        }
     }
 
 
@@ -46,9 +51,11 @@ public class NpcController : MonoBehaviour
             if (isAggressive) {
                 MoodSprRend.sprite = MoodAggressive;
                 destination.target = GameObject.FindWithTag("Player").transform;
+                followingPlayer = true;
             } else {
                 MoodSprRend.sprite = MoodGivenUp;
                 destination.target = GameObject.FindWithTag("Exit").transform;
+                followingPlayer = false;
             }
         } else {
             MoodSprRend.sprite = MoodAnnoyed;

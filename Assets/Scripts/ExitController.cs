@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ExitController : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         Debug.Log(other.transform.parent.tag);
+
         if (other.transform.parent.CompareTag("Npc")) {
-            Destroy(other.transform.parent.gameObject);
+            GameController.instance.NpcExitsCinema(other.transform.parent.gameObject);
         }
         else if (other.transform.parent.CompareTag("Player")) {
             Debug.Log("Player exits");

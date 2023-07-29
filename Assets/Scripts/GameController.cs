@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instance;
+
     [SerializeField] private GameObject SeatSet;
     [SerializeField] private GameObject NpcPrefab;
+    [SerializeField] private GameObject PlayerPrefab;
 
-    [SerializeField] private int npcAmount;
-    [SerializeField] private int aggressiveNpcAmount;
+    [SerializeField] private ushort npcAmount;
+    [SerializeField] private ushort aggressiveNpcAmount;
+
+    [HideInInspector] public ushort NpcAmount { get { return npcAmount; } }
+    [HideInInspector] public ushort AggressiveNpcAmount { get { return aggressiveNpcAmount; } }
+
+    private ushort points;
 
 
 
     void Awake()
     {
-        SpawnNpcs();
-    }
+        if (instance == null) {
+            instance = this;
+        } else Destroy(gameObject);
 
-    void Update()
-    {
-        
+        SpawnNpcs();
+        SpawnPlayer();
+
+        Time.timeScale = 1;
     }
 
 
@@ -27,12 +37,12 @@ public class GameController : MonoBehaviour
     private void SpawnNpcs()
     {
         List<Vector3> seatTriggerPositions = GetListOfSeatTriggerPositions();
-        CorrectNpcAmounts(seatTriggerPositions.Count);
+        CorrectNpcAmounts((ushort)seatTriggerPositions.Count);
 
-        int aggressiveNpcsLeft = aggressiveNpcAmount;
+        ushort aggressiveNpcsLeft = aggressiveNpcAmount;
 
-        for (int i = 0; i < npcAmount; i++) {
-            int seatTriggerPositionIndex = Random.Range(0, seatTriggerPositions.Count);
+        for (ushort i = 0; i < npcAmount; i++) {
+            ushort seatTriggerPositionIndex = (ushort)Random.Range(0, seatTriggerPositions.Count);
 
             GameObject npc = Instantiate(NpcPrefab, seatTriggerPositions[seatTriggerPositionIndex], Quaternion.identity);
 
@@ -46,6 +56,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void SpawnPlayer()
+    {
+        GameObject[] exits = GameObject.FindGameObjectsWithTag("Exit");
+        int exitIndex = Random.Range(0, exits.Length);
+
+        Instantiate(PlayerPrefab, exits[exitIndex].transform.position, Quaternion.identity);
+    }
+
     private List<Vector3> GetListOfSeatTriggerPositions()
     {
         List<Vector3> seatTriggerPositions = new List<Vector3>();
@@ -57,9 +75,30 @@ public class GameController : MonoBehaviour
         return seatTriggerPositions;
     }
 
-    private void CorrectNpcAmounts(int seatTriggerPositionsCount)
+    private void CorrectNpcAmounts(ushort seatTriggerPositionsCount)
     {
-        npcAmount = Mathf.Min(npcAmount, seatTriggerPositionsCount);
-        aggressiveNpcAmount = Mathf.Min(aggressiveNpcAmount, npcAmount);
+        npcAmount = (ushort)Mathf.Min(npcAmount, seatTriggerPositionsCount);
+        aggressiveNpcAmount = (ushort)Mathf.Min(aggressiveNpcAmount, npcAmount);
+    }
+
+    
+
+    public void NpcExitsCinema(GameObject npc)
+    {
+        points++;
+        UIController.instance.UpdatePoints(points, npcAmount);
+
+        Destroy(npc);
+
+        if (points == npcAmount) {
+            Time.timeScale = 0;
+            UIController.instance.SetActive_WinnerScreen(true);
+        }
+    }
+
+    public void NpcCatchesPlayer()
+    {
+        Time.timeScale = 0;
+        UIController.instance.SetActive_GameOverScreen(true);
     }
 }

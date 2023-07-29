@@ -53,6 +53,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SitStand"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab12ff7f-ad23-48e1-a88c-e4f8f36b4df3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,6 +196,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e411a29-0b5f-44b6-b970-4b02263d15fb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SitStand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -198,6 +218,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Speech = m_Player.FindAction("Speech", throwIfNotFound: true);
+        m_Player_SitStand = m_Player.FindAction("SitStand", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +283,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Speech;
+    private readonly InputAction m_Player_SitStand;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -269,6 +291,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Speech => m_Wrapper.m_Player_Speech;
+        public InputAction @SitStand => m_Wrapper.m_Player_SitStand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -287,6 +310,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Speech.started += instance.OnSpeech;
             @Speech.performed += instance.OnSpeech;
             @Speech.canceled += instance.OnSpeech;
+            @SitStand.started += instance.OnSitStand;
+            @SitStand.performed += instance.OnSitStand;
+            @SitStand.canceled += instance.OnSitStand;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -300,6 +326,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Speech.started -= instance.OnSpeech;
             @Speech.performed -= instance.OnSpeech;
             @Speech.canceled -= instance.OnSpeech;
+            @SitStand.started -= instance.OnSitStand;
+            @SitStand.performed -= instance.OnSitStand;
+            @SitStand.canceled -= instance.OnSitStand;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -322,5 +351,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnSpeech(InputAction.CallbackContext context);
+        void OnSitStand(InputAction.CallbackContext context);
     }
 }
